@@ -27,7 +27,7 @@
 #define CHANNEL_TIMESTAMP_MIN_WRITE	32
 #define TIMESTAMP_EACH_NSAMPLES 1024
 
-HDF5Recording::HDF5Recording() : processorIndex(-1), hasAcquired(false), bufferSize(MAX_BUFFER_SIZE)
+HDF5Recording::HDF5Recording() : processorIndex(-1), bufferSize(MAX_BUFFER_SIZE), hasAcquired(false)
 {
     //timestamp = 0;
     scaledBuffer.malloc(MAX_BUFFER_SIZE);
@@ -208,7 +208,7 @@ void HDF5Recording::writeData(int writeChannel, int realChannel, const float* bu
 
 	int sampleOffset = channelLeftOverSamples[writeChannel];
 	int blockStart = sampleOffset;
-	int64 currentTS = getTimestamp(realChannel);
+	int64 currentTS = getTimestamp(writeChannel);
 
 	if (sampleOffset > 0)
 	{
